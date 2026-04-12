@@ -1,0 +1,1212 @@
+/* ─────────────────────────────────────────────────────────────
+   TOKENS
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* — Kleurenpalet ─────────────────────────────────────────────
+     Basis: warm cream + forest green
+     Uitgebreid met ondersteunende tonen                         */
+  --bg:           #f4ebd7;   /* warm cream — achtergrond         */
+  --fg:           #0c0c0b;   /* near-black — primaire tekst      */
+  --green:        #1f4d2b;   /* forest green — accent            */
+  --green-dark:   #162419;   /* dieper groen — footer achtergrond*/
+  --muted:        #7d7567;   /* warm grijs — secundaire tekst    */
+  --border:       rgba(12, 12, 11, 0.11);
+
+  /* — Typografie ──────────────────────────────────────────────
+     Display : Neue Haas Grotesk Display — groot, clean, grotesk
+     Text    : Neue Haas Grotesk Text   — body & UI
+     Serif   : Cormorant — editorial italic contrast            */
+  --font-display: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif;
+  --font-text:    'neue-haas-grotesk-text',    'Helvetica Neue', sans-serif;
+  --font-serif:   'Cormorant', 'Georgia', serif;
+
+  /* — Layout ───────────────────────────────────────────────── */
+  --nav-h:  72px;
+  --pad:    clamp(28px, 4.4vw, 52px);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   RESET
+   ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   NAV
+   ───────────────────────────────────────────────────────────── */
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--nav-h);
+  padding: 0 var(--pad);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.nav-link {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  transition: opacity 0.25s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.38;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   HERO  — precies 100dvh totaal (nav + hero content)
+   ───────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  height: calc(100dvh - var(--nav-h));   /* ← exact, geen min-height */
+  padding: 0 var(--pad) clamp(32px, 5vh, 56px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Gradient sphere ──────────────────────────────────────── */
+
+.hero-sphere {
+  position: absolute;
+  top: -6%;
+  right: -16%;
+  width: clamp(320px, 54vw, 680px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-sphere img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Grote naam ───────────────────────────────────────────── */
+
+.hero-title {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(8px, 1.5vh, 20px);
+  font-family: var(--font-display);
+  font-size: clamp(88px, 21vw, 270px);
+  font-weight: 400;
+  line-height: 0.87;
+  letter-spacing: -0.03em;
+}
+
+.title-louis,
+.title-mullers {
+  display: block;
+}
+
+.title-mullers {
+  margin-left: 14%;
+}
+
+/* ── Taglines — iets groter voor betere hiërarchie ─────────── */
+
+.hero-taglines {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-bottom: clamp(32px, 5vh, 56px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  /* minder ruimte naar de naam toe */
+  padding-top: clamp(32px, 4vh, 48px);
+}
+
+.tagline {
+  font-size: clamp(15px, 1.75vw, 20px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.tagline-1 { margin-left: 0;   }
+.tagline-2 { margin-left: 17%; }
+.tagline-3 { margin-left: 30%; }
+
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDESHOW  — fullscreen diashow visueel werk
+   ───────────────────────────────────────────────────────────── */
+
+.slideshow {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--fg);
+}
+
+/* ── Track: horizontale rij dia's ────────────────────────── */
+
+.slideshow-track {
+  display: flex;
+  height: 100%;
+  /* transition snelheid moet overenkomen met DURATION in JS (700ms) */
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.slide {
+  width: 100vw;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Afbeeldingen in slides — standaard fullbleed */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Poster slides — volledig zichtbaar, gecentreerd op donkere achtergrond */
+.slide--poster {
+  background: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 72px);
+}
+
+.slide--poster img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Klikzones: linker helft = vorige, rechter helft = volgende */
+
+.slideshow-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slideshow-zone--prev {
+  left: 0;
+  cursor: w-resize;
+}
+
+.slideshow-zone--next {
+  right: 0;
+  cursor: e-resize;
+}
+
+/* ── Teller — subtiel in rechterhoek ─────────────────────── */
+
+.slideshow-counter {
+  position: absolute;
+  bottom: clamp(20px, 3vh, 36px);
+  right: var(--pad);
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--bg);
+  opacity: 0.45;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.counter-sep {
+  opacity: 0.5;
+}
+
+/* ── Voortgangsbalk — onderaan ────────────────────────────── */
+
+.slideshow-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(244, 235, 215, 0.12);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.slideshow-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: rgba(244, 235, 215, 0.45);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   WORKS GRID  — detail view
+   ───────────────────────────────────────────────────────────── */
+
+.works {
+  padding: clamp(60px, 8vw, 120px) var(--pad);
+}
+
+.works-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 20px;
+  margin-bottom: clamp(40px, 5vw, 72px);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 400;
+  color: var(--fg);
+}
+
+.works-cta-link {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.works-cta-link:hover {
+  color: var(--green);
+}
+
+/* ── Grid ─────────────────────────────────────────────────── */
+
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 44px);
+}
+
+.work-link {
+  display: block;
+}
+
+.work-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.work-image--1 { background: linear-gradient(145deg, #1f4d2b 0%, #2e7040 100%); }
+.work-image--2 { background: linear-gradient(145deg, #28201a 0%, #4d3c30 100%); }
+.work-image--3 { background: linear-gradient(145deg, #1a2420 0%, #2d443a 100%); }
+.work-image--4 { background: linear-gradient(145deg, #2c2010 0%, #5c4428 100%); }
+
+.work-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.work-item:hover .work-image img {
+  transform: scale(1.04);
+}
+
+.work-cta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-text);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--bg);
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.18);
+  transition: opacity 0.3s ease;
+}
+
+.work-item:hover .work-cta {
+  opacity: 1;
+}
+
+.work-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.work-num {
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 3px;
+  min-width: 20px;
+  flex-shrink: 0;
+}
+
+.work-text {
+  flex: 1;
+}
+
+.work-title {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 5px;
+  transition: color 0.25s ease;
+}
+
+.work-item:hover .work-title {
+  color: var(--green);
+}
+
+.work-cat {
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.work-year {
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────── */
+
+.footer {
+  margin-top: clamp(80px, 10vw, 140px);
+}
+
+/* ── Groene CTA blok ──────────────────────────────────────── */
+
+.footer-top {
+  background: var(--green);
+  padding: clamp(56px, 8vw, 104px) var(--pad) clamp(40px, 6vw, 72px);
+}
+
+.footer-top-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vh, 72px);
+}
+
+.footer-cta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+/* Grote typografische hook — Neue Haas + Cormorant italic mix */
+.footer-cta {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 8vw, 112px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--bg);
+}
+
+.footer-cta em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  /* iets lichter om de twee fonts te onderscheiden */
+  opacity: 0.72;
+}
+
+/* CTA knop — cream wipe-fill op hover */
+.footer-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--bg);
+  border: 1px solid rgba(244, 235, 215, 0.45);
+  padding: 18px 32px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-bottom: 8px;
+  transition: color 0.55s ease, border-color 0.4s ease;
+}
+
+/* Vulling schuift van links naar rechts op hover */
+.footer-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  border-radius: 100px;
+  transform: translateX(-101%);
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 0;
+}
+
+.footer-btn:hover::before {
+  transform: translateX(0);
+}
+
+.footer-btn:hover {
+  color: var(--green);
+  border-color: var(--bg);
+}
+
+/* Tekst + pijl boven de fill */
+.footer-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Details rij — status + tagline */
+.footer-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: clamp(24px, 3vh, 40px);
+  border-top: 1px solid rgba(244, 235, 215, 0.15);
+}
+
+/* Pulserende beschikbaarheidsstip */
+.footer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--bg);
+  opacity: 0.7;
+}
+
+.status-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  background: #6ecf8a;   /* zachte mintgroen — zichtbaar op donkergroen */
+  border-radius: 50%;
+  animation: pulse-dot 2.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.3; transform: scale(0.7);  }
+}
+
+.footer-tagline {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--bg);
+  opacity: 0.4;
+  letter-spacing: 0.01em;
+}
+
+/* ── Cream balk — copyright + socials ─────────────────────── */
+
+.footer-base {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.footer-base-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px var(--pad);
+  gap: 16px;
+}
+
+.footer-copy {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-discipline {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.6;
+  letter-spacing: 0.01em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-link {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--fg);
+}
+
+/* ── CV download link (footer base) ──────────────────────── */
+
+.footer-cv {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.footer-cv:hover {
+  color: var(--fg);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   PROJECT PAGE
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.project-hero {
+  padding: clamp(32px, 5vh, 56px) var(--pad) clamp(32px, 4vh, 48px);
+}
+
+.project-hero-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: clamp(20px, 2.5vh, 32px);
+}
+
+.project-num {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.project-tag {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+/* Dunne lijn boven en onder de titel */
+.project-rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* Grote staggered projecttitel — zelfde DNA als hero-naam */
+.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 15vw, 190px);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  padding: clamp(20px, 2.5vh, 36px) 0;
+}
+
+.project-title-line {
+  display: block;
+}
+
+.project-title-indent {
+  margin-left: 14%;  /* zelfde stagger als de hero-naam */
+}
+
+/* Meta rij */
+.project-meta {
+  display: flex;
+  gap: clamp(32px, 5vw, 72px);
+  padding-top: clamp(20px, 2.5vh, 32px);
+  flex-wrap: wrap;
+}
+
+.project-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-family: var(--font-text);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta-value {
+  font-family: var(--font-text);
+  font-size: 14px;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+
+/* ── Afbeelding helpers ───────────────────────────────────── */
+
+/* Placeholder kleuren — verwijder als je echte afbeeldingen hebt */
+.pimg {
+  display: block;
+  overflow: hidden;
+}
+
+.pimg--green { background: linear-gradient(145deg, #1f4d2b 0%, #2e7040 100%); }
+.pimg--dark  { background: linear-gradient(145deg, #141414 0%, #2e2e2e 100%); }
+.pimg--teal  { background: linear-gradient(145deg, #0d2a28 0%, #1c5252 100%); }
+.pimg--warm  { background: linear-gradient(145deg, #2c1c10 0%, #6b3d24 100%); }
+
+/* Hero afbeelding (met zijmarges) */
+.project-img-hero {
+  margin: 0 var(--pad);
+  aspect-ratio: 16 / 9;
+}
+
+/* Full-bleed afbeelding (rand-tot-rand) */
+.project-img-fullbleed {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  margin: 0;
+}
+
+/* ── Overzicht ────────────────────────────────────────────── */
+
+.project-overview {
+  padding: clamp(64px, 9vw, 120px) var(--pad);
+}
+
+.project-overview-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(40px, 8vw, 120px);
+  align-items: start;
+}
+
+.project-section-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  color: var(--muted);
+  margin-bottom: clamp(20px, 2.5vh, 32px);
+}
+
+.project-body {
+  font-family: var(--font-text);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 1.2em;
+}
+
+.project-body:last-child {
+  margin-bottom: 0;
+}
+
+.project-detail-block {
+  padding-top: clamp(4px, 1vw, 12px);
+}
+
+.project-detail-list {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-detail-list li {
+  font-family: var(--font-text);
+  font-size: 14px;
+  color: var(--fg);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Galerijen ────────────────────────────────────────────── */
+
+.project-gallery {
+  padding: 0 var(--pad) clamp(24px, 4vw, 56px);
+}
+
+/* Groot links + twee kleine rechts gestapeld */
+.project-gallery-duo {
+  display: flex;
+  gap: clamp(12px, 2vw, 24px);
+  align-items: stretch;
+}
+
+.project-gallery-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+/* 2×2 raster */
+.project-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+/* Poster triptiek — 3 gelijke kolommen */
+.project-gallery-trio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+/* ── Volgende project ─────────────────────────────────────── */
+
+.project-next {
+  padding: clamp(64px, 9vw, 120px) var(--pad) clamp(80px, 10vw, 140px);
+}
+
+.project-next-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--muted);
+  margin-bottom: clamp(20px, 2.5vh, 32px);
+}
+
+.project-next-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: clamp(20px, 3vh, 36px);
+  gap: 24px;
+}
+
+.project-next-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 12vw, 150px);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  transition: color 0.25s ease;
+}
+
+.project-next-line {
+  display: block;
+}
+
+.project-next-indent {
+  margin-left: 10%;
+}
+
+.project-next-link:hover .project-next-title {
+  color: var(--green);
+}
+
+.project-next-num {
+  font-family: var(--font-text);
+  font-size: 14px;
+  color: var(--muted);
+  padding-bottom: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.25s ease;
+}
+
+.project-next-link:hover .project-next-num {
+  color: var(--green);
+}
+
+/* ── Nav logo ─────────────────────────────────────────────── */
+
+.nav-logo {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 36px;   /* pas aan naar de hoogte van jouw logo */
+  width: auto;
+  display: block;
+}
+
+.nav-back {
+  font-size: 14px;
+  opacity: 0.55;
+}
+
+/* Actieve nav link (huidige pagina) */
+.nav-link--active {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   ABOUT PAGE
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.about-hero {
+  padding: 0 var(--pad);
+}
+
+.about-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: clamp(20px, 2.5vh, 32px) 0 clamp(16px, 2vh, 24px);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-eyebrow {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.about-year {
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Naam + portret naast elkaar */
+.about-hero-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(28px, 4vh, 52px) 0 clamp(28px, 4vh, 52px);
+}
+
+/* Grote naam — zelfde DNA als homepage hero */
+.about-name {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 16vw, 220px);
+  font-weight: 400;
+  line-height: 0.87;
+  letter-spacing: -0.03em;
+  flex: 1;
+}
+
+.about-name-first,
+.about-name-last {
+  display: block;
+}
+
+.about-name-last {
+  margin-left: 14%;  /* zelfde stagger als homepage */
+}
+
+/* Portret — placeholder tot je een echte foto toevoegt */
+.about-portrait {
+  flex-shrink: 0;
+  width: clamp(200px, 28vw, 380px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  align-self: flex-end;
+}
+
+.about-portrait-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #162419 0%, #1f4d2b 55%, #2a6638 100%);
+}
+
+/* Foto zodra je die toevoegt */
+.about-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-hero-rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── Bio — quote + tekst ──────────────────────────────────── */
+
+.about-content {
+  padding: clamp(56px, 8vw, 104px) var(--pad);
+}
+
+.about-content-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(40px, 8vw, 120px);
+  align-items: start;
+}
+
+/* Grote Cormorant italic quote — links */
+.about-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(22px, 2.8vw, 38px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+/* Bio tekst — rechts */
+.about-bio-text {
+  font-family: var(--font-text);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 1.3em;
+}
+
+.about-bio-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Details — raster met 4 blokjes ──────────────────────── */
+
+.about-details {
+  padding: clamp(40px, 5vw, 64px) var(--pad);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.about-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.about-detail-label {
+  font-family: var(--font-text);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.about-detail-value {
+  font-family: var(--font-text);
+  font-size: 14px;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.about-detail-link {
+  color: var(--fg);
+  transition: color 0.2s ease;
+}
+
+.about-detail-link:hover {
+  color: var(--green);
+}
+
+/* ── Skills — how I think + how I work ───────────────────── */
+
+.about-skills {
+  padding: clamp(64px, 9vw, 120px) var(--pad) clamp(80px, 10vw, 140px);
+  border-top: 1px solid var(--border);
+}
+
+.about-skills-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(48px, 8vw, 120px);
+  align-items: start;
+}
+
+/* Gedeelde kolomlabel */
+.skills-col-label {
+  font-family: var(--font-text);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: clamp(24px, 3.5vh, 40px);
+  padding-bottom: clamp(14px, 2vh, 20px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Links: How I think ───────────────────────────────────── */
+
+/* Grote Cormorant italic opener */
+.skills-statement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: clamp(32px, 4.5vh, 52px);
+}
+
+.skills-traits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.skills-trait {
+  padding: clamp(18px, 2.5vh, 28px) 0 clamp(18px, 2.5vh, 28px) clamp(16px, 2vw, 24px);
+  border-left: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: border-left-color 0.25s ease;
+}
+
+.skills-trait:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.skills-trait:hover {
+  border-left-color: var(--green);
+}
+
+.skills-trait-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+
+.skills-trait-desc {
+  font-family: var(--font-text);
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+
+/* ── Rechts: How I work ───────────────────────────────────── */
+
+.skills-tool-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vh, 32px);
+}
+
+.skills-tool-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skills-tool-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.skills-tool-name {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--fg);
+}
+
+/* Niveau badge: Fluent / Proficient / Learning */
+.skills-tool-tag {
+  font-family: var(--font-text);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Minimale 2px balk */
+.skills-tool-bar {
+  height: 2px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.skills-tool-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--fill);
+  background: var(--fg);
+  border-radius: 1px;
+}
