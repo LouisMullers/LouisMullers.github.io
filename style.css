@@ -297,10 +297,11 @@ a {
 }
 
 .section-label {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(17px, 1.8vw, 22px);
+  font-family: var(--font-text);
+  font-size: clamp(13px, 1.4vw, 16px);
   font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--fg);
 }
 
@@ -743,10 +744,11 @@ a {
 }
 
 .project-section-label {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(16px, 1.6vw, 20px);
+  font-family: var(--font-text);
+  font-size: clamp(12px, 1.3vw, 15px);
   font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
   margin-bottom: clamp(20px, 2.5vh, 32px);
 }
@@ -825,9 +827,10 @@ a {
 }
 
 .project-next-label {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(16px, 1.6vw, 20px);
+  font-family: var(--font-text);
+  font-size: clamp(12px, 1.3vw, 15px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
   margin-bottom: clamp(20px, 2.5vh, 32px);
 }
@@ -991,7 +994,7 @@ a {
   margin: 0;
 }
 
-/* ── Bio — quote + tekst ──────────────────────────────────── */
+/* ── Bio — foto + tekst ───────────────────────────────────── */
 
 .about-content {
   padding: clamp(56px, 8vw, 104px) var(--pad);
@@ -999,19 +1002,34 @@ a {
 
 .about-content-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 0.9fr 1fr;
   gap: clamp(40px, 8vw, 120px);
   align-items: start;
 }
 
-/* Grote Cormorant italic quote — links */
-.about-quote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(28px, 3.5vw, 48px);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--fg);
+/* Foto — links */
+.about-photo-col {
+  flex-shrink: 0;
+}
+
+.about-inline-portrait {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.about-inline-portrait-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #162419 0%, #1f4d2b 55%, #2a6638 100%);
+}
+
+.about-inline-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Bio tekst — rechts */
@@ -1028,65 +1046,69 @@ a {
   margin-bottom: 0;
 }
 
-/* ── Details — raster met 4 blokjes ──────────────────────── */
+/* ── Marquee — scrollende statement ────────────────────── */
 
-.about-details {
-  padding: clamp(40px, 5vw, 64px) var(--pad);
+.about-marquee {
+  padding: clamp(36px, 5vh, 64px) 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
 
-.about-details-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(24px, 4vw, 48px);
-}
-
-.about-detail-item {
+.marquee-track {
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  gap: clamp(48px, 8vw, 96px);
+  width: max-content;
+  animation: marquee 28s linear infinite;
 }
 
-.about-detail-label {
-  font-family: var(--font-text);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.about-detail-value {
-  font-family: var(--font-text);
-  font-size: 14px;
+.marquee-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(32px, 4.5vw, 64px);
+  letter-spacing: -0.02em;
   color: var(--fg);
-  letter-spacing: -0.01em;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  white-space: nowrap;
+  padding: 0 var(--pad);
+  line-height: 1.2;
+  flex-shrink: 0;
 }
 
-.about-detail-link {
-  color: var(--fg);
-  transition: color 0.2s ease;
+.about-marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
-.about-detail-link:hover {
-  color: var(--green);
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - clamp(24px, 4vw, 48px)));
+  }
 }
 
 /* ── Skills — how I think + how I work ───────────────────── */
 
 .about-skills {
-  padding: clamp(64px, 9vw, 120px) var(--pad) clamp(80px, 10vw, 140px);
+  padding: clamp(64px, 9vw, 120px) var(--pad) clamp(64px, 9vw, 120px);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
+
+
 
 .about-skills-inner {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   gap: clamp(48px, 8vw, 120px);
   align-items: start;
+}
+
+/* Rechterkolom: How I work + Languages gestacked */
+.skills-right-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 4vw, 52px);
 }
 
 /* Gedeelde kolomlabel */
@@ -1103,13 +1125,12 @@ a {
 
 /* ── Links: How I think ───────────────────────────────────── */
 
-/* Grote Cormorant italic opener */
+/* How I think — intro statement */
 .skills-statement {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(20px, 2.4vw, 32px);
-  line-height: 1.3;
-  letter-spacing: -0.02em;
+  font-family: var(--font-text);
+  font-size: clamp(15px, 1.6vw, 19px);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
   color: var(--fg);
   margin-bottom: clamp(32px, 4.5vh, 52px);
 }
@@ -1192,13 +1213,14 @@ a {
   color: var(--muted);
 }
 
-/* Minimale 2px balk */
+/* Skill bars — scroll fill animation */
 .skills-tool-bar {
-  height: 2px;
+  height: 3px;
   background: var(--border);
   position: relative;
   overflow: hidden;
-  border-radius: 1px;
+  border-radius: 1.5px;
+  margin-top: 8px;
 }
 
 .skills-tool-fill {
@@ -1206,7 +1228,34 @@ a {
   left: 0;
   top: 0;
   height: 100%;
-  width: var(--fill);
+  width: 0;
   background: var(--fg);
-  border-radius: 1px;
+  border-radius: 1.5px;
+  transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Stagger animation voor elke bar */
+.skills-tool-item:nth-child(1) .skills-tool-fill {
+  transition-delay: 0s;
+}
+
+.skills-tool-item:nth-child(2) .skills-tool-fill {
+  transition-delay: 0.1s;
+}
+
+.skills-tool-item:nth-child(3) .skills-tool-fill {
+  transition-delay: 0.2s;
+}
+
+.skills-tool-item:nth-child(4) .skills-tool-fill {
+  transition-delay: 0.3s;
+}
+
+.skills-tool-item:nth-child(5) .skills-tool-fill {
+  transition-delay: 0.4s;
+}
+
+/* Zichtbaar: bars vullen */
+.about-skills-inner.is-visible .skills-tool-fill {
+  width: var(--fill);
 }

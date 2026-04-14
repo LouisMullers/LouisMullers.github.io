@@ -8,7 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/rlr4tki.css">
   <link rel="stylesheet" href="style.css">
-</head>
+  <meta name="description" content="Communication & Multimedia Design student. Co-founder of Naxos Studios. Always up for a challenge.">
+  <meta name="author" content="Louis Mullers">
+  <meta property="og:title" content="About Louis Mullers">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f4ebd7">
+  </head>
 <body>
 
   <!-- ─── Nav ──────────────────────────────────────────────── -->
@@ -33,7 +38,7 @@
         <span class="about-name-last">Mullers</span>
       </h1>
 
-      <!-- Portret — vervang de placeholder div door: -->
+      
       <!-- <img src="assets/images/portrait.jpg" alt="Louis Mullers" class="about-portrait-img"> -->
       <div class="about-portrait">
         <div class="about-portrait-inner"></div>
@@ -50,11 +55,11 @@
 
     <div class="about-content-grid">
 
-      <!-- Links: grote Cormorant italic quote -->
-      <div class="about-quote-col">
-        <p class="about-quote">
-          My creative journey as a student.
-        </p>
+      <!-- Links: foto -->
+      <div class="about-photo-col">
+        <div class="about-inline-portrait">
+          <div class="about-inline-portrait-inner"></div>
+        </div>
       </div>
 
       <!-- Rechts: bio tekst -->
@@ -67,36 +72,16 @@
 
   </section>
 
-  <!-- ─── Details — locatie, studie, beschikbaarheid ──────── -->
-  <section class="about-details">
-
-    <div class="about-details-grid">
-
-      <div class="about-detail-item">
-        <span class="about-detail-label">Based in</span>
-        <span class="about-detail-value">Belgium</span>
-      </div>
-
-      <div class="about-detail-item">
-        <span class="about-detail-label">Education</span>
-        <span class="about-detail-value">Communication &amp; Multimedia Design</span>
-      </div>
-
-      <div class="about-detail-item">
-        <span class="about-detail-label">Status</span>
-        <span class="about-detail-value">
-          <span class="status-dot" aria-hidden="true"></span>
-          Available for work
-        </span>
-      </div>
-
-      <div class="about-detail-item">
-        <span class="about-detail-label">Contact</span>
-        <a href="mailto:mullerslouis2@gmail.com" class="about-detail-value about-detail-link">mullerslouis2@gmail.com</a>
-      </div>
-
+  <!-- ─── Marquee — scrollende statement ───────────────────── -->
+  <section class="about-marquee">
+    <div class="marquee-track">
+      <span class="marquee-text">Always up for a challenge.</span>
+      <span class="marquee-text">Always up for a challenge.</span>
+      <span class="marquee-text">Always up for a challenge.</span>
+      <span class="marquee-text" aria-hidden="true">Always up for a challenge.</span>
+      <span class="marquee-text" aria-hidden="true">Always up for a challenge.</span>
+      <span class="marquee-text" aria-hidden="true">Always up for a challenge.</span>
     </div>
-
   </section>
 
   <!-- ─── Skills ───────────────────────────────────────────── -->
@@ -139,64 +124,120 @@
 
       </div>
 
-      <!-- Rechts: How I work — tools -->
-      <div class="skills-col skills-col--right">
+      <!-- Rechts: How I work + Languages grouped -->
+      <div class="skills-right-group">
 
-        <p class="skills-col-label">How I work</p>
+        <!-- How I work — tools -->
+        <div class="skills-col skills-col--right">
+
+          <p class="skills-col-label">How I work</p>
+
+          <ul class="skills-tool-list">
+
+            <li class="skills-tool-item">
+              <div class="skills-tool-top">
+                <span class="skills-tool-name">Illustrator</span>
+                <span class="skills-tool-tag">Fluent</span>
+              </div>
+              <div class="skills-tool-bar">
+                <div class="skills-tool-fill" style="--fill: 76%"></div>
+              </div>
+            </li>
+
+            <li class="skills-tool-item">
+              <div class="skills-tool-top">
+                <span class="skills-tool-name">Figma</span>
+                <span class="skills-tool-tag">Fluent</span>
+              </div>
+              <div class="skills-tool-bar">
+                <div class="skills-tool-fill" style="--fill: 72%"></div>
+              </div>
+            </li>
+
+            <li class="skills-tool-item">
+              <div class="skills-tool-top">
+                <span class="skills-tool-name">InDesign</span>
+                <span class="skills-tool-tag">Proficient</span>
+              </div>
+              <div class="skills-tool-bar">
+                <div class="skills-tool-fill" style="--fill: 53%"></div>
+              </div>
+            </li>
+
+            <li class="skills-tool-item">
+              <div class="skills-tool-top">
+                <span class="skills-tool-name">Photoshop</span>
+                <span class="skills-tool-tag">Proficient</span>
+              </div>
+              <div class="skills-tool-bar">
+                <div class="skills-tool-fill" style="--fill: 49%"></div>
+              </div>
+            </li>
+
+            <li class="skills-tool-item">
+              <div class="skills-tool-top">
+                <span class="skills-tool-name">Blender</span>
+                <span class="skills-tool-tag">Learning</span>
+              </div>
+              <div class="skills-tool-bar">
+                <div class="skills-tool-fill" style="--fill: 37%"></div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <!-- Languages -->
+        <div class="skills-col skills-col--languages">
+
+        <p class="skills-col-label">Languages</p>
 
         <ul class="skills-tool-list">
 
           <li class="skills-tool-item">
             <div class="skills-tool-top">
-              <span class="skills-tool-name">Illustrator</span>
+              <span class="skills-tool-name">Dutch</span>
+              <span class="skills-tool-tag">Native</span>
+            </div>
+            <div class="skills-tool-bar">
+              <div class="skills-tool-fill" style="--fill: 100%"></div>
+            </div>
+          </li>
+
+          <li class="skills-tool-item">
+            <div class="skills-tool-top">
+              <span class="skills-tool-name">English</span>
               <span class="skills-tool-tag">Fluent</span>
             </div>
             <div class="skills-tool-bar">
-              <div class="skills-tool-fill" style="--fill: 90%"></div>
+              <div class="skills-tool-fill" style="--fill: 85%"></div>
             </div>
           </li>
 
           <li class="skills-tool-item">
             <div class="skills-tool-top">
-              <span class="skills-tool-name">Figma</span>
-              <span class="skills-tool-tag">Fluent</span>
+              <span class="skills-tool-name">French</span>
+              <span class="skills-tool-tag">Basis</span>
             </div>
             <div class="skills-tool-bar">
-              <div class="skills-tool-fill" style="--fill: 86%"></div>
+              <div class="skills-tool-fill" style="--fill: 45%"></div>
             </div>
           </li>
 
           <li class="skills-tool-item">
             <div class="skills-tool-top">
-              <span class="skills-tool-name">InDesign</span>
-              <span class="skills-tool-tag">Proficient</span>
-            </div>
-            <div class="skills-tool-bar">
-              <div class="skills-tool-fill" style="--fill: 62%"></div>
-            </div>
-          </li>
-
-          <li class="skills-tool-item">
-            <div class="skills-tool-top">
-              <span class="skills-tool-name">Photoshop</span>
-              <span class="skills-tool-tag">Proficient</span>
-            </div>
-            <div class="skills-tool-bar">
-              <div class="skills-tool-fill" style="--fill: 58%"></div>
-            </div>
-          </li>
-
-          <li class="skills-tool-item">
-            <div class="skills-tool-top">
-              <span class="skills-tool-name">Blender</span>
+              <span class="skills-tool-name">Spanish</span>
               <span class="skills-tool-tag">Learning</span>
             </div>
             <div class="skills-tool-bar">
-              <div class="skills-tool-fill" style="--fill: 44%"></div>
+              <div class="skills-tool-fill" style="--fill: 12%"></div>
             </div>
           </li>
 
         </ul>
+
+      </div>
 
       </div>
 
@@ -239,7 +280,7 @@
         <span class="footer-copy">© 2026 Louis Mullers</span>
         <a href="assets/files/louis-mullers-cv.pdf" download class="footer-cv">Download CV</a>
         <nav class="footer-links" aria-label="Social links">
-          <!-- Vervang door jouw eigen profiel-URL -->
+          
           <a href="https://nl.linkedin.com/in/louis-mullers-193283380" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
           <a href="https://www.instagram.com/louis_mullers/" target="_blank" rel="noopener noreferrer" class="footer-link">Instagram</a>
         </nav>
@@ -247,6 +288,24 @@
     </div>
 
   </footer>
+
+  <script>
+    // Animate skill bars on scroll into view
+    const skillsInner = document.querySelector('.about-skills-inner');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
+          entry.target.classList.add('is-visible');
+          entry.target.setAttribute('data-animated', 'true');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    if (skillsInner) {
+      observer.observe(skillsInner);
+    }
+  </script>
 
 </body>
 </html>

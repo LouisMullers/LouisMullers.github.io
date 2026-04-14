@@ -282,3 +282,47 @@ This keeps your work organized and lets you revert if needed.
 ---
 
 **Questions? Use the CONTENT_TODO.md as your guide for what to fill in next.**
+
+---
+
+## Louis Mullers — Schrijfstijl & Toon
+
+**CRITICAL:** Every piece of content must feel authentically written by Louis, not AI-generated.
+
+### Toon Regels (MUST FOLLOW)
+- **Geen dashes** — gebruik punten of komma's, nooit em-dash of en-dash
+- **Geen "I" capitalize** — "i" in casual writing (bijv. "two friends and i founded")
+- **Verhaal vertellen, niet beschrijven** — "In 2025 two friends and I founded..." niet "I co-founded in 2025"
+- **Korte samenhangende zinnen** — geen bullet-point lijsten of opsommingen
+- **Niet stoefend** — vermijd "I work best when I can focus entirely on design" (klinkt als zelfpromotie)
+- **Eerlijk over beperkingen** — "I'm still a student", "there are things I want to be able to do"
+- **Geen corporate taal** — AVOID: methodically, leverage, ensure, seamlessly, synergy, actionable
+- **"Communication & Multimedia Design"** — altijd met &, NOOIT "and"
+- **Praktisch denken** — "During the process it's not always fun, I'll be honest about that"
+
+### Wat Louis NIET Doet
+- Geen poëzie of overdreven emotionele taal
+- Geen "that matters" of "that's important" aan het einde
+- Geen "as a designer" statements
+- Geen "passionate about" clichés
+- Geen "I'm obsessed with" unless very genuine
+
+### Voorbeelden van GOED vs SLECHT
+
+**SLECHT (corporate/AI):**
+"I approach every project methodically. I'm passionate about creating visual solutions that leverage strategic thinking to ensure brand coherence."
+
+**GOED (Louis):**
+"I start with research before designing anything. I ask questions until I understand what I'm solving for, and then I build things and test them."
+
+---
+
+## Project Context (Voor Quick Reference)
+
+- **Naxos Studio's**: Co-founded summer 2025 with 2 friends. First client: landscape startup (branding project). Now on pause due to school.
+- **Current Education**: Communication & Multimedia Design (Hogeschool Zuyd), year 2
+- **Tools**: Illustrator (primary, very comfortable), Figma (UI/UX), Learning: Photoshop
+- **Background**: Born Maastricht, grew up Veldwezelt, Belgium. Started UCLL Creative Media Management, switched to CMD because it matched his actual interests.
+- **Personality**: "Meedenkend" (thoughtful), honest, loves challenges, obsessed with details, balanced by sport
+
+---
