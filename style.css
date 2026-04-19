@@ -1,35 +1,26 @@
-/* ─────────────────────────────────────────────────────────────
-   TOKENS
-   ───────────────────────────────────────────────────────────── */
+/* tokens */
 
 :root {
-  /* — Kleurenpalet ─────────────────────────────────────────────
-     Basis: warm cream + forest green
-     Uitgebreid met ondersteunende tonen                         */
-  --bg:           #f4ebd7;   /* warm cream — achtergrond         */
-  --fg:           #0c0c0b;   /* near-black — primaire tekst      */
-  --green:        #1f4d2b;   /* forest green — accent            */
-  --green-dark:   #162419;   /* dieper groen — footer achtergrond*/
-  --muted:        #7d7567;   /* warm grijs — secundaire tekst    */
-  --border:       rgba(12, 12, 11, 0.11);
+  /* kleuren */
+  --bg: #f4ebd7;
+  --fg: #0c0c0b;
+  --green: #1f4d2b;
+  --green-dark: #162419;
+  --muted: #7d7567;
+  --border: rgba(12, 12, 11, 0.11);
 
-  /* — Typografie ──────────────────────────────────────────────
-     Display : Neue Haas Grotesk Display — groot, clean, grotesk
-     Text    : Neue Haas Grotesk Text   — body & UI
-     Serif   : Cormorant — editorial italic contrast            */
+  /* fonts */
   --font-display: 'neue-haas-grotesk-display', 'Helvetica Neue', sans-serif;
   --font-text:    'neue-haas-grotesk-text',    'Helvetica Neue', sans-serif;
   --font-serif:   'Cormorant', 'Georgia', serif;
 
-  /* — Layout ───────────────────────────────────────────────── */
-  --nav-h:  72px;
-  --pad:    clamp(28px, 4.4vw, 52px);
+  /* layout */
+  --nav-h: 80px;
+  --pad: clamp(28px, 4.4vw, 52px);
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   RESET
-   ───────────────────────────────────────────────────────────── */
+/* reset */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -52,9 +43,7 @@ a {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   NAV
-   ───────────────────────────────────────────────────────────── */
+/* nav */
 
 .nav {
   display: flex;
@@ -69,8 +58,8 @@ a {
 
 .nav-link {
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 13px;
+  letter-spacing: 0.1em;
+  font-size: 14px;
   transition: opacity 0.25s ease;
 }
 
@@ -79,20 +68,17 @@ a {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   HERO  — precies 100dvh totaal (nav + hero content)
-   ───────────────────────────────────────────────────────────── */
+/* hero */
 
 .hero {
   position: relative;
-  height: calc(100dvh - var(--nav-h));   /* ← exact, geen min-height */
-  padding: 0 var(--pad) clamp(32px, 5vh, 56px);
+  height: calc(100dvh - var(--nav-h));
+  padding: clamp(18px, 2.8vh, 32px) var(--pad) clamp(28px, 4vh, 48px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* ── Gradient sphere ──────────────────────────────────────── */
 
 .hero-sphere {
   position: absolute;
@@ -101,20 +87,26 @@ a {
   width: clamp(320px, 54vw, 680px);
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  animation: hero-sphere-fade 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s forwards;
 }
 
 .hero-sphere img {
   width: 100%;
   height: auto;
   display: block;
+  will-change: transform;
 }
 
-/* ── Grote naam ───────────────────────────────────────────── */
+@keyframes hero-sphere-fade {
+  to { opacity: 1; }
+}
+
 
 .hero-title {
   position: relative;
   z-index: 1;
-  margin-top: clamp(8px, 1.5vh, 20px);
+  margin-top: clamp(24px, 4vh, 56px);
   font-family: var(--font-display);
   font-size: clamp(88px, 21vw, 270px);
   font-weight: 400;
@@ -125,42 +117,120 @@ a {
 .title-louis,
 .title-mullers {
   display: block;
+  overflow: hidden;
+  /* extra padding zodat de descenders niet worden afgeknipt */
+  padding: 0.04em 0;
 }
 
 .title-mullers {
   margin-left: 14%;
 }
 
-/* ── Taglines — iets groter voor betere hiërarchie ─────────── */
+.title-inner {
+  display: inline-block;
+  line-height: inherit;
+  transform: translateY(110%);
+  animation: hero-reveal 1.15s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  will-change: transform;
+}
 
-.hero-taglines {
+.title-louis   .title-inner { animation-delay: 0.15s; }
+.title-mullers .title-inner { animation-delay: 0.32s; }
+
+@keyframes hero-reveal {
+  to { transform: translateY(0); }
+}
+
+
+.hero-rule {
+  position: relative;
+  z-index: 1;
+  width: clamp(220px, 28vw, 360px);
+  height: 1px;
+  background: var(--green);
+  margin: clamp(22px, 3.2vh, 36px) 0 clamp(14px, 1.8vh, 22px) 14%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: hero-rule-draw 0.95s cubic-bezier(0.7, 0, 0.3, 1) 1.15s forwards;
+}
+
+@keyframes hero-rule-draw {
+  to { transform: scaleX(1); }
+}
+
+
+.hero-caption {
+  position: relative;
+  z-index: 1;
+  margin-left: 14%;
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--fg);
+  opacity: 0;
+  animation: hero-fade-up 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s forwards;
+}
+
+.hero-caption em { font-style: italic; }
+
+
+.hero-scroll {
   position: relative;
   z-index: 1;
   margin-top: auto;
-  padding-bottom: clamp(32px, 5vh, 56px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
+  align-self: center;
+  display: inline-flex;
   flex-direction: column;
-  gap: 1.2em;
-  /* minder ruimte naar de naam toe */
-  padding-top: clamp(32px, 4vh, 48px);
+  align-items: center;
+  gap: 6px;
+  padding-top: clamp(24px, 4vh, 40px);
+  font-family: var(--font-text);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg);
+  opacity: 0;
+  animation: hero-fade-up 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s forwards;
+  transition: opacity 0.25s ease;
 }
 
-.tagline {
-  font-size: clamp(15px, 1.75vw, 20px);
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
+.hero-scroll:hover { opacity: 0.55; }
+
+.hero-scroll-arrow {
+  font-size: 13px;
+  animation: hero-bob 2.4s ease-in-out infinite;
 }
 
-.tagline-1 { margin-left: 0;   }
-.tagline-2 { margin-left: 17%; }
-.tagline-3 { margin-left: 30%; }
+@keyframes hero-bob {
+  0%, 100% { transform: translateY(0);   }
+  50%      { transform: translateY(5px); }
+}
 
 
-/* ─────────────────────────────────────────────────────────────
-   SLIDESHOW  — fullscreen diashow visueel werk
-   ───────────────────────────────────────────────────────────── */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sphere,
+  .title-inner,
+  .hero-rule,
+  .hero-caption,
+  .hero-scroll {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-scroll-arrow {
+    animation: none !important;
+  }
+}
+
+
+/* slideshow */
 
 .slideshow {
   position: relative;
@@ -169,12 +239,11 @@ a {
   background: var(--fg);
 }
 
-/* ── Track: horizontale rij dia's ────────────────────────── */
 
 .slideshow-track {
   display: flex;
   height: 100%;
-  /* transition snelheid moet overenkomen met DURATION in JS (700ms) */
+  /* transitie moet gelijk zijn aan DURATION in JS (700ms) */
   transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
 }
@@ -186,7 +255,6 @@ a {
   overflow: hidden;
 }
 
-/* Afbeeldingen in slides — standaard fullbleed */
 .slide img {
   width: 100%;
   height: 100%;
@@ -196,48 +264,42 @@ a {
   user-select: none;
 }
 
-/* Poster slides — volledig zichtbaar, gecentreerd op donkere achtergrond */
 .slide--poster {
-  background: var(--fg);
+  position: relative;
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(32px, 5vw, 72px);
 }
 
-.slide--poster img {
+/* poster wordt wazig als achtergrond, scherpe poster staat er bovenop */
+.slide--poster .slide-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(48px) saturate(1.15) brightness(0.92);
+  transform: scale(1.12);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slide--poster .slide-img {
+  position: relative;
+  z-index: 1;
   width: auto;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   display: block;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    0 40px 80px rgba(0, 0, 0, 0.22);
 }
 
-/* ── Klikzones: linker helft = vorige, rechter helft = volgende */
-
-.slideshow-zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: transparent;
-  border: none;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.slideshow-zone--prev {
-  left: 0;
-  cursor: w-resize;
-}
-
-.slideshow-zone--next {
-  right: 0;
-  cursor: e-resize;
-}
-
-/* ── Teller — subtiel in rechterhoek ─────────────────────── */
 
 .slideshow-counter {
   position: absolute;
@@ -259,7 +321,6 @@ a {
   opacity: 0.5;
 }
 
-/* ── Voortgangsbalk — onderaan ────────────────────────────── */
 
 .slideshow-progress {
   position: absolute;
@@ -279,9 +340,7 @@ a {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   WORKS GRID  — detail view
-   ───────────────────────────────────────────────────────────── */
+/* works */
 
 .works {
   padding: clamp(60px, 8vw, 120px) var(--pad);
@@ -305,24 +364,36 @@ a {
   color: var(--fg);
 }
 
-.works-cta-link {
-  font-family: var(--font-text);
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
-}
-
-.works-cta-link:hover {
-  color: var(--green);
-}
-
-/* ── Grid ─────────────────────────────────────────────────── */
 
 .works-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(20px, 3vw, 44px);
+}
+
+.work-item {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.work-item:nth-child(2) { transition-delay: 0.08s; }
+.work-item:nth-child(3) { transition-delay: 0.16s; }
+.work-item:nth-child(4) { transition-delay: 0.24s; }
+
+.work-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .work-link {
@@ -335,11 +406,6 @@ a {
   overflow: hidden;
   margin-bottom: 18px;
 }
-
-.work-image--1 { background: linear-gradient(145deg, #1f4d2b 0%, #2e7040 100%); }
-.work-image--2 { background: linear-gradient(145deg, #28201a 0%, #4d3c30 100%); }
-.work-image--3 { background: linear-gradient(145deg, #1a2420 0%, #2d443a 100%); }
-.work-image--4 { background: linear-gradient(145deg, #2c2010 0%, #5c4428 100%); }
 
 .work-image img {
   width: 100%;
@@ -420,15 +486,12 @@ a {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   FOOTER
-   ───────────────────────────────────────────────────────────── */
+/* footer */
 
 .footer {
   margin-top: clamp(80px, 10vw, 140px);
 }
 
-/* ── Groene CTA blok ──────────────────────────────────────── */
 
 .footer-top {
   background: var(--green);
@@ -448,7 +511,6 @@ a {
   gap: 24px;
 }
 
-/* Grote typografische hook — Neue Haas + Cormorant italic mix */
 .footer-cta {
   font-family: var(--font-display);
   font-size: clamp(44px, 8vw, 112px);
@@ -462,11 +524,9 @@ a {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  /* iets lichter om de twee fonts te onderscheiden */
   opacity: 0.72;
 }
 
-/* CTA knop — cream wipe-fill op hover */
 .footer-btn {
   position: relative;
   overflow: hidden;
@@ -488,7 +548,7 @@ a {
   transition: color 0.55s ease, border-color 0.4s ease;
 }
 
-/* Vulling schuift van links naar rechts op hover */
+/* vulling schuift van links naar rechts op hover */
 .footer-btn::before {
   content: '';
   position: absolute;
@@ -509,14 +569,12 @@ a {
   border-color: var(--bg);
 }
 
-/* Tekst + pijl boven de fill */
 .footer-btn span {
   position: relative;
   z-index: 1;
 }
 
 
-/* Details rij — status + tagline */
 .footer-details {
   display: flex;
   justify-content: space-between;
@@ -525,7 +583,6 @@ a {
   border-top: 1px solid rgba(244, 235, 215, 0.15);
 }
 
-/* Pulserende beschikbaarheidsstip */
 .footer-status {
   display: inline-flex;
   align-items: center;
@@ -540,7 +597,7 @@ a {
   display: block;
   width: 7px;
   height: 7px;
-  background: #6ecf8a;   /* zachte mintgroen — zichtbaar op donkergroen */
+  background: #6ecf8a;
   border-radius: 50%;
   animation: pulse-dot 2.6s ease-in-out infinite;
   flex-shrink: 0;
@@ -559,7 +616,6 @@ a {
   letter-spacing: 0.01em;
 }
 
-/* ── Cream balk — copyright + socials ─────────────────────── */
 
 .footer-base {
   background: var(--bg);
@@ -580,14 +636,6 @@ a {
   color: var(--muted);
 }
 
-.footer-discipline {
-  font-family: var(--font-text);
-  font-size: 13px;
-  color: var(--muted);
-  opacity: 0.6;
-  letter-spacing: 0.01em;
-}
-
 .footer-links {
   display: flex;
   gap: 24px;
@@ -604,7 +652,6 @@ a {
   color: var(--fg);
 }
 
-/* ── CV download link (footer base) ──────────────────────── */
 
 .footer-cv {
   font-family: var(--font-text);
@@ -619,11 +666,8 @@ a {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   PROJECT PAGE
-   ───────────────────────────────────────────────────────────── */
+/* project pages */
 
-/* ── Hero ─────────────────────────────────────────────────── */
 
 .project-hero {
   padding: clamp(32px, 5vh, 56px) var(--pad) clamp(32px, 4vh, 48px);
@@ -650,32 +694,32 @@ a {
   letter-spacing: 0.01em;
 }
 
-/* Dunne lijn boven en onder de titel */
 .project-rule {
   border: none;
   border-top: 1px solid var(--border);
   margin: 0;
 }
 
-/* Grote staggered projecttitel — zelfde DNA als hero-naam */
 .project-title {
   font-family: var(--font-display);
-  font-size: clamp(72px, 15vw, 190px);
+  font-size: clamp(40px, 9vw, 120px);
   font-weight: 400;
-  line-height: 0.88;
+  line-height: 0.9;
   letter-spacing: -0.03em;
   padding: clamp(20px, 2.5vh, 36px) 0;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 .project-title-line {
   display: block;
 }
 
+/* zelfde inspringing als de hero op de homepage */
 .project-title-indent {
-  margin-left: 14%;  /* zelfde stagger als de hero-naam */
+  margin-left: 14%;
 }
 
-/* Meta rij */
 .project-meta {
   display: flex;
   gap: clamp(32px, 5vw, 72px);
@@ -704,33 +748,40 @@ a {
   letter-spacing: -0.01em;
 }
 
-/* ── Afbeelding helpers ───────────────────────────────────── */
-
-/* Placeholder kleuren — verwijder als je echte afbeeldingen hebt */
-.pimg {
-  display: block;
-  overflow: hidden;
-}
-
-.pimg--green { background: linear-gradient(145deg, #1f4d2b 0%, #2e7040 100%); }
-.pimg--dark  { background: linear-gradient(145deg, #141414 0%, #2e2e2e 100%); }
-.pimg--teal  { background: linear-gradient(145deg, #0d2a28 0%, #1c5252 100%); }
-.pimg--warm  { background: linear-gradient(145deg, #2c1c10 0%, #6b3d24 100%); }
-
-/* Hero afbeelding (met zijmarges) */
 .project-img-hero {
   margin: 0 var(--pad);
   aspect-ratio: 16 / 9;
+  overflow: hidden;
 }
 
-/* Full-bleed afbeelding (rand-tot-rand) */
-.project-img-fullbleed {
+.project-img-hero-img {
   width: 100%;
-  aspect-ratio: 21 / 9;
-  margin: 0;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* ── Overzicht ────────────────────────────────────────────── */
+/* voor illustraties met witte achtergrond */
+.project-img-hero--blend {
+  background: var(--bg);
+}
+
+.project-img-hero--blend .project-img-hero-img {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* laat de afbeelding zijn eigen verhouding houden, geen crop */
+.project-img-hero--natural {
+  aspect-ratio: auto;
+  height: auto;
+}
+
+.project-img-hero--natural .project-img-hero-img {
+  height: auto;
+  object-fit: unset;
+}
+
 
 .project-overview {
   padding: clamp(64px, 9vw, 120px) var(--pad);
@@ -786,41 +837,11 @@ a {
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Galerijen ────────────────────────────────────────────── */
 
 .project-gallery {
   padding: 0 var(--pad) clamp(24px, 4vw, 56px);
 }
 
-/* Groot links + twee kleine rechts gestapeld */
-.project-gallery-duo {
-  display: flex;
-  gap: clamp(12px, 2vw, 24px);
-  align-items: stretch;
-}
-
-.project-gallery-col {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 2vw, 24px);
-}
-
-/* 2×2 raster */
-.project-gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(12px, 2vw, 24px);
-}
-
-/* Poster triptiek — 3 gelijke kolommen */
-.project-gallery-trio {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: clamp(12px, 2vw, 24px);
-}
-
-/* ── Volgende project ─────────────────────────────────────── */
 
 .project-next {
   padding: clamp(64px, 9vw, 120px) var(--pad) clamp(80px, 10vw, 140px);
@@ -846,9 +867,9 @@ a {
 
 .project-next-title {
   font-family: var(--font-display);
-  font-size: clamp(56px, 12vw, 150px);
+  font-size: clamp(40px, 9vw, 110px);
   font-weight: 400;
-  line-height: 0.88;
+  line-height: 0.9;
   letter-spacing: -0.03em;
   transition: color 0.25s ease;
 }
@@ -879,7 +900,6 @@ a {
   color: var(--green);
 }
 
-/* ── Nav logo ─────────────────────────────────────────────── */
 
 .nav-logo {
   text-decoration: none;
@@ -889,28 +909,19 @@ a {
 }
 
 .nav-logo-img {
-  height: 36px;   /* pas aan naar de hoogte van jouw logo */
+  height: 44px;
   width: auto;
   display: block;
 }
 
-.nav-back {
-  font-size: 14px;
-  opacity: 0.55;
-}
-
-/* Actieve nav link (huidige pagina) */
 .nav-link--active {
   opacity: 0.38;
   pointer-events: none;
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   ABOUT PAGE
-   ───────────────────────────────────────────────────────────── */
+/* about page */
 
-/* ── Hero ─────────────────────────────────────────────────── */
 
 .about-hero {
   padding: 0 var(--pad);
@@ -937,7 +948,6 @@ a {
   color: var(--muted);
 }
 
-/* Naam + portret naast elkaar */
 .about-hero-body {
   display: flex;
   justify-content: space-between;
@@ -946,7 +956,6 @@ a {
   padding: clamp(28px, 4vh, 52px) 0 clamp(28px, 4vh, 52px);
 }
 
-/* Grote naam — zelfde DNA als homepage hero */
 .about-name {
   font-family: var(--font-display);
   font-size: clamp(72px, 16vw, 220px);
@@ -962,29 +971,39 @@ a {
 }
 
 .about-name-last {
-  margin-left: 14%;  /* zelfde stagger als homepage */
+  margin-left: 14%;
 }
 
-/* Portret — placeholder tot je een echte foto toevoegt */
 .about-portrait {
+  position: relative;
   flex-shrink: 0;
-  width: clamp(200px, 28vw, 380px);
+  width: clamp(220px, 30vw, 400px);
   aspect-ratio: 3 / 4;
-  overflow: hidden;
   align-self: flex-end;
+  isolation: isolate;
 }
 
-.about-portrait-inner {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, #162419 0%, #1f4d2b 55%, #2a6638 100%);
+/* groen vlak achter het portret */
+.about-portrait-frame {
+  position: absolute;
+  inset: 12% 0 0 10%;
+  background: var(--green);
+  z-index: 0;
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* Foto zodra je die toevoegt */
+.about-portrait:hover .about-portrait-frame {
+  transform: translateY(-6px);
+}
+
 .about-portrait-img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
 }
 
@@ -994,7 +1013,6 @@ a {
   margin: 0;
 }
 
-/* ── Bio — foto + tekst ───────────────────────────────────── */
 
 .about-content {
   padding: clamp(56px, 8vw, 104px) var(--pad);
@@ -1007,22 +1025,31 @@ a {
   align-items: start;
 }
 
-/* Foto — links */
 .about-photo-col {
   flex-shrink: 0;
 }
 
+/* polaroid look met rotatie en shadow */
 .about-inline-portrait {
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-  border-radius: 2px;
+  width: clamp(260px, 90%, 380px);
+  margin: 0 auto;
+  transform: rotate(-2deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.about-inline-portrait-inner {
+.about-inline-portrait:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.about-inline-portrait-frame {
   width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, #162419 0%, #1f4d2b 55%, #2a6638 100%);
+  aspect-ratio: 3 / 4;
+  background: #fdfaf0;
+  padding: 14px 14px 64px 14px;
+  box-shadow:
+    0 1px 2px rgba(12, 12, 11, 0.06),
+    0 10px 30px rgba(12, 12, 11, 0.12),
+    0 24px 60px rgba(12, 12, 11, 0.08);
 }
 
 .about-inline-portrait-img {
@@ -1030,9 +1057,29 @@ a {
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: saturate(0.92) contrast(1.02);
 }
 
-/* Bio tekst — rechts */
+.about-inline-portrait-caption {
+  margin-top: 14px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.about-inline-portrait-caption em {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--fg);
+  margin-top: 4px;
+  letter-spacing: 0.005em;
+}
+
 .about-bio-text {
   font-family: var(--font-text);
   font-size: clamp(15px, 1.5vw, 18px);
@@ -1046,7 +1093,6 @@ a {
   margin-bottom: 0;
 }
 
-/* ── Marquee — scrollende statement ────────────────────── */
 
 .about-marquee {
   padding: clamp(36px, 5vh, 64px) 0;
@@ -1087,7 +1133,6 @@ a {
   }
 }
 
-/* ── Skills — how I think + how I work ───────────────────── */
 
 .about-skills {
   padding: clamp(64px, 9vw, 120px) var(--pad) clamp(64px, 9vw, 120px);
@@ -1104,14 +1149,12 @@ a {
   align-items: start;
 }
 
-/* Rechterkolom: How I work + Languages gestacked */
 .skills-right-group {
   display: flex;
   flex-direction: column;
   gap: clamp(32px, 4vw, 52px);
 }
 
-/* Gedeelde kolomlabel */
 .skills-col-label {
   font-family: var(--font-text);
   font-size: 11px;
@@ -1123,9 +1166,7 @@ a {
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Links: How I think ───────────────────────────────────── */
 
-/* How I think — intro statement */
 .skills-statement {
   font-family: var(--font-text);
   font-size: clamp(15px, 1.6vw, 19px);
@@ -1175,7 +1216,6 @@ a {
   color: var(--muted);
 }
 
-/* ── Rechts: How I work ───────────────────────────────────── */
 
 .skills-tool-list {
   list-style: none;
@@ -1204,7 +1244,6 @@ a {
   color: var(--fg);
 }
 
-/* Niveau badge: Fluent / Proficient / Learning */
 .skills-tool-tag {
   font-family: var(--font-text);
   font-size: 11px;
@@ -1213,7 +1252,6 @@ a {
   color: var(--muted);
 }
 
-/* Skill bars — scroll fill animation */
 .skills-tool-bar {
   height: 3px;
   background: var(--border);
@@ -1234,7 +1272,7 @@ a {
   transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Stagger animation voor elke bar */
+/* balken vullen na elkaar in, niet allemaal tegelijk */
 .skills-tool-item:nth-child(1) .skills-tool-fill {
   transition-delay: 0s;
 }
@@ -1255,7 +1293,321 @@ a {
   transition-delay: 0.4s;
 }
 
-/* Zichtbaar: bars vullen */
 .about-skills-inner.is-visible .skills-tool-fill {
   width: var(--fill);
+}
+
+
+/* project showcase (gebruikt op alle project-pagina's) */
+
+.project-brand {
+  background: var(--green);
+  padding: clamp(80px, 12vh, 160px) var(--pad);
+  margin-top: clamp(60px, 8vh, 96px);
+  color: var(--bg);
+  text-align: center;
+}
+
+.project-brand-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 3vh, 40px);
+}
+
+/* twee kaarten naast elkaar */
+.project-brand-inner--duo {
+  max-width: 880px;
+}
+
+.project-brand-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  width: 100%;
+  align-items: center;
+}
+
+.project-brand-cards .project-brand-card {
+  max-width: 100%;
+}
+
+.project-brand-cards .project-brand-card:nth-child(1) {
+  transform: rotate(-1.6deg);
+}
+
+.project-brand-cards .project-brand-card:nth-child(2) {
+  transform: rotate(1.2deg);
+}
+
+.project-brand-cards .project-brand-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.project-brand-eyebrow {
+  font-family: var(--font-text);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0.55;
+}
+
+.project-brand-card {
+  background: #fdfaf0;
+  padding: clamp(36px, 5vw, 72px);
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.10),
+    0 20px 60px rgba(0, 0, 0, 0.22),
+    0 40px 100px rgba(0, 0, 0, 0.18);
+  transform: rotate(-0.8deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.project-brand-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.project-brand-card img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.project-brand-caption {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: var(--bg);
+  opacity: 0.72;
+  letter-spacing: 0.005em;
+  line-height: 1.4;
+}
+
+.project-brand-caption em {
+  font-style: italic;
+}
+
+.project-web {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 44px);
+  margin: 0 var(--pad);
+}
+
+.project-web-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+}
+
+.project-web-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #ffffff;
+  box-shadow:
+    0 1px 3px rgba(12, 12, 11, 0.06),
+    0 12px 40px rgba(12, 12, 11, 0.10);
+}
+
+.project-web-caption {
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* drie items naast elkaar, portret verhouding */
+.project-web--trio {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.project-web--trio .project-web-item img {
+  aspect-ratio: 3 / 4;
+  height: auto;
+  object-fit: cover;
+}
+
+/* drie items met eigen verhouding, geen crop */
+.project-web--trio-natural {
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+}
+
+.project-web--trio-natural .project-web-item img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: unset;
+}
+
+/* een item, ingesloten max-width */
+.project-web--single {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* responsive */
+
+
+@media (max-width: 960px) {
+
+  .about-content-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .about-photo-col {
+    max-width: 420px;
+  }
+
+  .about-skills-inner {
+    grid-template-columns: 1fr;
+    gap: clamp(48px, 6vh, 72px);
+  }
+
+  .project-overview-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 48px);
+  }
+
+}
+
+
+
+@media (max-width: 720px) {
+
+  .nav-link {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .title-mullers {
+    margin-left: 6%;
+  }
+
+  .hero-rule {
+    width: 55%;
+    margin-left: 0;
+  }
+
+  .hero-caption {
+    margin-left: 0;
+  }
+
+  .about-hero-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(28px, 4vh, 48px);
+  }
+
+  .about-portrait {
+    width: 78%;
+    align-self: flex-start;
+  }
+
+  .about-name-last {
+    margin-left: 6%;
+  }
+
+  .skills-right-group {
+    grid-template-columns: 1fr;
+    gap: clamp(40px, 6vh, 60px);
+  }
+
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-hero-eyebrow {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project-meta {
+    gap: clamp(18px, 3vh, 28px);
+  }
+
+  .project-web,
+  .project-web--trio,
+  .project-web--trio-natural,
+  .project-web--quad {
+    grid-template-columns: 1fr;
+  }
+
+  .project-brand {
+    padding: clamp(56px, 9vh, 96px) var(--pad);
+  }
+
+  .project-brand-cards {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 6vw, 48px);
+  }
+
+  .project-next-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(24px, 4vw, 40px);
+  }
+
+  .footer-btn {
+    align-self: flex-start;
+    margin-bottom: 0;
+  }
+
+  .footer-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .footer-base-inner {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+}
+
+
+
+@media (max-width: 480px) {
+
+  :root {
+    --nav-h: 68px;
+  }
+
+  .nav-logo-img {
+    height: 36px;
+  }
+
+  .skills-trait {
+    padding: clamp(14px, 2.2vh, 22px) 0 clamp(14px, 2.2vh, 22px) clamp(10px, 2vw, 16px);
+  }
+
+  .project-num,
+  .project-tag {
+    font-size: 12px;
+  }
+
 }

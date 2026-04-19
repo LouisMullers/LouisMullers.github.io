@@ -2,19 +2,18 @@
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings (privacy)
-.claude/settings.local.json
+# Editor
+.vscode/settings.json
 
-# PDFs (store originals locally, not in git)
+# Originele bronbestanden (niet in git)
 assets/images/Poster-*.pdf
 assets/images/Original-*.pdf
 
-# Node modules (if we add them later)
+# Node (voor het geval we later iets toevoegen)
 node_modules/
 package-lock.json
 yarn.lock
 
-# Temporary files
+# Temp
 *.tmp
 *.swp
-.vscode/settings.json
