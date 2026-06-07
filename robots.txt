@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://louismullers.github.io/sitemap.xml
