@@ -1221,20 +1221,19 @@ a {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: clamp(20px, 3vh, 32px);
 }
 
 .skills-tool-item {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding: clamp(14px, 2vh, 20px) 0;
-  border-bottom: 1px solid var(--border);
+  flex-direction: column;
+  gap: 8px;
 }
 
-.skills-tool-item:first-child {
-  border-top: 1px solid var(--border);
+.skills-tool-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .skills-tool-name {
@@ -1251,7 +1250,50 @@ a {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
-  white-space: nowrap;
+}
+
+.skills-tool-bar {
+  height: 3px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5px;
+  margin-top: 8px;
+}
+
+.skills-tool-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--fg);
+  border-radius: 1.5px;
+  transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skills-tool-item:nth-child(1) .skills-tool-fill {
+  transition-delay: 0s;
+}
+
+.skills-tool-item:nth-child(2) .skills-tool-fill {
+  transition-delay: 0.1s;
+}
+
+.skills-tool-item:nth-child(3) .skills-tool-fill {
+  transition-delay: 0.2s;
+}
+
+.skills-tool-item:nth-child(4) .skills-tool-fill {
+  transition-delay: 0.3s;
+}
+
+.skills-tool-item:nth-child(5) .skills-tool-fill {
+  transition-delay: 0.4s;
+}
+
+.about-skills-inner.is-visible .skills-tool-fill {
+  width: var(--fill);
 }
 
 
@@ -1419,6 +1461,53 @@ a {
 }
 
 
+/* editorial ritme — gevarieerde plaatsing i.p.v. gelijke grids */
+
+/* meer lucht tussen opeenvolgende galerijen */
+.project-gallery {
+  padding-top: clamp(40px, 7vw, 96px);
+}
+
+/* twee beelden: asymmetrisch én verspringend (magazine-stagger) */
+.project-web--duo {
+  grid-template-columns: 1.4fr 1fr;
+  align-items: start;
+  gap: clamp(28px, 4vw, 72px);
+}
+
+.project-web--duo .project-web-item:nth-child(2) {
+  margin-top: clamp(48px, 9vw, 120px);
+}
+
+/* drie beelden: middelste laten zakken voor ritme */
+.project-web--trio .project-web-item:nth-child(2),
+.project-web--trio-natural .project-web-item:nth-child(2) {
+  margin-top: clamp(32px, 6vw, 80px);
+}
+
+/* zachte hover-lift, consistent met de brand-cards */
+.project-web-item img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+              box-shadow 0.5s ease;
+}
+
+.project-web-item img:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2px 6px rgba(12, 12, 11, 0.08),
+    0 24px 60px rgba(12, 12, 11, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-web-item img {
+    transition: none;
+  }
+  .project-web-item img:hover {
+    transform: none;
+  }
+}
+
+
 /* responsive */
 
 
@@ -1500,10 +1589,17 @@ a {
   }
 
   .project-web,
+  .project-web--duo,
   .project-web--trio,
   .project-web--trio-natural,
   .project-web--quad {
     grid-template-columns: 1fr;
+  }
+
+  .project-web--duo .project-web-item:nth-child(2),
+  .project-web--trio .project-web-item:nth-child(2),
+  .project-web--trio-natural .project-web-item:nth-child(2) {
+    margin-top: 0;
   }
 
   .project-brand {
