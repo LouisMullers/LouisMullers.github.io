@@ -2,14 +2,18 @@
 .DS_Store
 Thumbs.db
 
-# Editor
-.vscode/settings.json
+# Editor and local tool settings
+.vscode/
+.claude/
+.idea/
 
-# Originele bronbestanden (niet in git)
-assets/images/Poster-*.pdf
-assets/images/Original-*.pdf
+# Secrets: never commit these
+.env
+.env.*
+*.pem
+*.key
 
-# Node (voor het geval we later iets toevoegen)
+# Node
 node_modules/
 package-lock.json
 yarn.lock

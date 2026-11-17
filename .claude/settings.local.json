@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:use.typekit.net)",
-      "WebFetch(domain:fonts.adobe.com)"
-    ]
-  }
-}
